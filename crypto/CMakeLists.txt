@@ -67,7 +67,6 @@ file(GLOB SRCS
 	hmac/*.c
 
 	idea/*.c
-
 	lhash/*.c
 	md5/*.c
 	modes/*.c

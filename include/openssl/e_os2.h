@@ -88,7 +88,7 @@ extern "C" {
    MS-DOS, such as DJGPP one. */
 #if defined(OPENSSL_SYSNAME_MSDOS)
 # undef OPENSSL_SYS_UNIX
-# define OPENSSL_SYS_MSDOS
+# undef OPENSSL_SYS_MSDOS
 #endif
 
 /* For 32 bit environment, there seems to be the CygWin environment and then
