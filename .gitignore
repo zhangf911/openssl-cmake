@@ -1,0 +1,10 @@
+*.kdev4
+.kdev4/
+*.o
+*.obj
+*.pl
+*.S
+*.s
+build/
+Debug/
+Release/
