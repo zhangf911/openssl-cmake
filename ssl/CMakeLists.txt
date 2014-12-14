@@ -3,4 +3,4 @@ file(GLOB SRCS *.c)
 
 include_directories(../crypto/)
 
-add_library(ssleay32 STATIC ${SRCS})
+add_library(eay32 STATIC ${SRCS})
