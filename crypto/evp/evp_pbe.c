@@ -10,7 +10,7 @@
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
+ *    notice, this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -79,7 +79,7 @@ typedef struct
 	EVP_PBE_KEYGEN *keygen;
 	} EVP_PBE_CTL;
 
-static const EVP_PBE_CTL builtin_pbe[] = 
+static const EVP_PBE_CTL builtin_pbe[] =
 	{
 	{EVP_PBE_TYPE_OUTER, NID_pbeWithMD2AndDES_CBC,
 			NID_des_cbc, NID_md2, PKCS5_PBE_keyivgen},
@@ -98,7 +98,7 @@ static const EVP_PBE_CTL builtin_pbe[] =
 			NID_rc4_40, NID_sha1, PKCS12_PBE_keyivgen},
 	{EVP_PBE_TYPE_OUTER, NID_pbe_WithSHA1And3_Key_TripleDES_CBC,
 		 	NID_des_ede3_cbc, NID_sha1, PKCS12_PBE_keyivgen},
-	{EVP_PBE_TYPE_OUTER, NID_pbe_WithSHA1And2_Key_TripleDES_CBC, 
+	{EVP_PBE_TYPE_OUTER, NID_pbe_WithSHA1And2_Key_TripleDES_CBC,
 			NID_des_ede_cbc, NID_sha1, PKCS12_PBE_keyivgen},
 	{EVP_PBE_TYPE_OUTER, NID_pbe_WithSHA1And128BitRC2_CBC,
 			NID_rc2_cbc, NID_sha1, PKCS12_PBE_keyivgen},
@@ -124,33 +124,6 @@ static const EVP_PBE_CTL builtin_pbe[] =
 	{EVP_PBE_TYPE_PRF, NID_hmacWithSHA512, -1, NID_sha512, 0},
 	{EVP_PBE_TYPE_PRF, NID_id_HMACGostR3411_94, -1, NID_id_GostR3411_94, 0},
 	};
-
-#ifdef TEST
-int main(int argc, char **argv)
-	{
-	int i, nid_md, nid_cipher;
-	EVP_PBE_CTL *tpbe, *tpbe2;
-	/*OpenSSL_add_all_algorithms();*/
-
-	for (i = 0; i < sizeof(builtin_pbe)/sizeof(EVP_PBE_CTL); i++)
-		{
-		tpbe = builtin_pbe + i;
-		fprintf(stderr, "%d %d %s ", tpbe->pbe_type, tpbe->pbe_nid,
-						OBJ_nid2sn(tpbe->pbe_nid));
-		if (EVP_PBE_find(tpbe->pbe_type, tpbe->pbe_nid,
-					&nid_cipher ,&nid_md,0))
-			fprintf(stderr, "Found %s %s\n",
-					OBJ_nid2sn(nid_cipher),
-					OBJ_nid2sn(nid_md));
-		else
-			fprintf(stderr, "Find ERROR!!\n");
-		}
-
-	return 0;
-	}
-#endif
-		
-
 
 int EVP_PBE_CipherInit(ASN1_OBJECT *pbe_obj, const char *pass, int passlen,
 		       ASN1_TYPE *param, EVP_CIPHER_CTX *ctx, int en_de)
@@ -205,7 +178,7 @@ int EVP_PBE_CipherInit(ASN1_OBJECT *pbe_obj, const char *pass, int passlen,
 		EVPerr(EVP_F_EVP_PBE_CIPHERINIT,EVP_R_KEYGEN_FAILURE);
 		return 0;
 		}
-	return 1;	
+	return 1;
 }
 
 DECLARE_OBJ_BSEARCH_CMP_FN(EVP_PBE_CTL, EVP_PBE_CTL, pbe2);

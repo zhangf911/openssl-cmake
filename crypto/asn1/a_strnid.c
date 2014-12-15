@@ -10,7 +10,7 @@
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
+ *    notice, this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -116,7 +116,7 @@ int ASN1_STRING_set_default_mask_asc(const char *p)
 }
 
 /* The following function generates an ASN1_STRING based on limits in a table.
- * Frequently the types and length of an ASN1_STRING are restricted by a 
+ * Frequently the types and length of an ASN1_STRING are restricted by a
  * corresponding OID. For example certificates and certificate requests.
  */
 
@@ -200,7 +200,7 @@ ASN1_STRING_TABLE *ASN1_STRING_TABLE_get(int nid)
 	ASN1_STRING_TABLE *ttmp;
 	ASN1_STRING_TABLE fnd;
 	fnd.nid = nid;
-	ttmp = OBJ_bsearch_table(&fnd, tbl_standard, 
+	ttmp = OBJ_bsearch_table(&fnd, tbl_standard,
 			   sizeof(tbl_standard)/sizeof(ASN1_STRING_TABLE));
 	if(ttmp) return ttmp;
 	if(!stable) return NULL;
@@ -208,7 +208,7 @@ ASN1_STRING_TABLE *ASN1_STRING_TABLE_get(int nid)
 	if(idx < 0) return NULL;
 	return sk_ASN1_STRING_TABLE_value(stable, idx);
 }
-	
+
 int ASN1_STRING_TABLE_add(int nid,
 		 long minsize, long maxsize, unsigned long mask,
 				unsigned long flags)
@@ -256,35 +256,3 @@ static void st_free(ASN1_STRING_TABLE *tbl)
 
 IMPLEMENT_STACK_OF(ASN1_STRING_TABLE)
 
-#ifdef STRING_TABLE_TEST
-
-main()
-{
-	ASN1_STRING_TABLE *tmp;
-	int i, last_nid = -1;
-
-	for (tmp = tbl_standard, i = 0;
-		i < sizeof(tbl_standard)/sizeof(ASN1_STRING_TABLE); i++, tmp++)
-		{
-			if (tmp->nid < last_nid)
-				{
-				last_nid = 0;
-				break;
-				}
-			last_nid = tmp->nid;
-		}
-
-	if (last_nid != 0)
-		{
-		printf("Table order OK\n");
-		exit(0);
-		}
-
-	for (tmp = tbl_standard, i = 0;
-		i < sizeof(tbl_standard)/sizeof(ASN1_STRING_TABLE); i++, tmp++)
-			printf("Index %d, NID %d, Name=%s\n", i, tmp->nid,
-							OBJ_nid2ln(tmp->nid));
-
-}
-
-#endif

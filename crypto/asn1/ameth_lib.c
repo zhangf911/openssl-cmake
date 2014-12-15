@@ -9,7 +9,7 @@
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
+ *    notice, this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -72,7 +72,7 @@ extern const EVP_PKEY_ASN1_METHOD hmac_asn1_meth;
 extern const EVP_PKEY_ASN1_METHOD cmac_asn1_meth;
 
 /* Keep this sorted in type order !! */
-static const EVP_PKEY_ASN1_METHOD *standard_methods[] = 
+static const EVP_PKEY_ASN1_METHOD *standard_methods[] =
 	{
 #ifndef OPENSSL_NO_RSA
 	&rsa_asn1_meths[0],
@@ -100,20 +100,6 @@ DECLARE_STACK_OF(EVP_PKEY_ASN1_METHOD)
 static STACK_OF(EVP_PKEY_ASN1_METHOD) *app_methods = NULL;
 
 
-
-#ifdef TEST
-void main()
-	{
-	int i;
-	for (i = 0;
-		i < sizeof(standard_methods)/sizeof(EVP_PKEY_ASN1_METHOD *);
-		i++)
-		fprintf(stderr, "Number %d id=%d (%s)\n", i,
-			standard_methods[i]->pkey_id,
-			OBJ_nid2sn(standard_methods[i]->pkey_id));
-	}
-#endif
-
 DECLARE_OBJ_BSEARCH_CMP_FN(const EVP_PKEY_ASN1_METHOD *,
 			   const EVP_PKEY_ASN1_METHOD *, ameth);
 
@@ -138,7 +124,7 @@ const EVP_PKEY_ASN1_METHOD *EVP_PKEY_asn1_get0(int idx)
 	{
 	int num = sizeof(standard_methods)/sizeof(EVP_PKEY_ASN1_METHOD *);
 	if (idx < 0)
-		return NULL; 
+		return NULL;
 	if (idx < num)
 		return standard_methods[idx];
 	idx -= num;
@@ -167,7 +153,7 @@ static const EVP_PKEY_ASN1_METHOD *pkey_asn1_find(int type)
 
 /* Find an implementation of an ASN1 algorithm. If 'pe' is not NULL
  * also search through engines and set *pe to a functional reference
- * to the engine implementing 'type' or NULL if no engine implements 
+ * to the engine implementing 'type' or NULL if no engine implements
  * it.
  */
 
@@ -230,7 +216,7 @@ const EVP_PKEY_ASN1_METHOD *EVP_PKEY_asn1_find_str(ENGINE **pe,
 		ameth = EVP_PKEY_asn1_get0(i);
 		if (ameth->pkey_flags & ASN1_PKEY_ALIAS)
 			continue;
-		if (((int)strlen(ameth->pem_str) == len) && 
+		if (((int)strlen(ameth->pem_str) == len) &&
 			!strncasecmp(ameth->pem_str, str, len))
 			return ameth;
 		}
@@ -359,7 +345,7 @@ EVP_PKEY_ASN1_METHOD* EVP_PKEY_asn1_new(int id, int flags,
 
 	}
 
-void EVP_PKEY_asn1_copy(EVP_PKEY_ASN1_METHOD *dst, 
+void EVP_PKEY_asn1_copy(EVP_PKEY_ASN1_METHOD *dst,
 			const EVP_PKEY_ASN1_METHOD *src)
 	{
 
